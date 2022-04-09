@@ -10,7 +10,7 @@ try:
         port = 27017,
         serverSelectionTimeoutMS = 1000
     )
-    db = mongo.company
+    db = mongo.EV_db
     mongo.server_info() # trigger exception if cannot connet to db
 except:
     print ("ERROR - Cannot connect to db")
@@ -69,6 +69,25 @@ def get_tesla():
         print(ex)
         return Response(
             response = json.dumps({"message":"cannot read tesla"}),
+            status = 500,
+            mimetype = "application/json"
+        )
+##############################
+@app.route("/flo_stations_us", methods=["GET"])
+def get_flo():
+    try:
+        data = list(db.flo_stations_us.find())
+        for station in data:
+            station["_id"] = str(station['_id'])
+        return Response(
+            response = json.dumps(data),
+            status = 200,
+            mimetype = "application/json"
+        )
+    except Exception as ex:
+        print(ex)
+        return Response(
+            response = json.dumps({"message":"cannot read flo"}),
             status = 500,
             mimetype = "application/json"
         )
