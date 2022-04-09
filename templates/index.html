@@ -18,7 +18,7 @@
   crossorigin=""/>
 
   <!-- Our CSS -->
-  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
@@ -26,8 +26,13 @@
   <div id="map-id"></div>
 
   <!-- Our JavaScript file -->
-  <script type="text/javascript" src="js/EvStation_logic.js"></script>
-</body>
+  <script type="text/javascript" src="static/js/EvStation_logic.js"></script>/
+
+  <!-- {% for station in stations %}
+    <h1>{{station}}</h1>
+  {% endfor %} -->
+
+ </body>
 
 </html>
 

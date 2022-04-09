@@ -1,5 +1,5 @@
 # from unicodedata import name
-from flask import Flask, Response, request
+from flask import Flask, Response, render_template,jsonify
 import pymongo
 import json
 from bson.objectid import ObjectId
@@ -14,6 +14,7 @@ try:
     mongo.server_info() # trigger exception if cannot connet to db
 except:
     print ("ERROR - Cannot connect to db")
+data1 = []
 
 ##############################
 @app.route("/greenlots_stations_us", methods=["GET"])
@@ -23,7 +24,7 @@ def get_greenlots():
         for station in data:
             station["_id"] = str(station['_id'])
         return Response(
-            response = json.dumps(data),
+            response = (data),
             status = 200,
             mimetype = "application/json"
         )
@@ -61,7 +62,7 @@ def get_tesla():
         for station in data:
             station["_id"] = str(station['_id'])
         return Response(
-            response = json.dumps(data),
+            response = (data),
             status = 200,
             mimetype = "application/json"
         )
@@ -92,5 +93,55 @@ def get_flo():
             mimetype = "application/json"
         )
 ##############################
+
+##############################
+
+##############################
+@app.route("/API/tesla_stations_us_web")
+def get_tesla_web():
+    # try:
+        data = list(db.tesla_stations_us.find())
+        for station in data:
+            station["_id"] = str(station['_id'])
+        return jsonify(data)
+    # except Exception as ex:
+    #     print(ex)
+    #     return Response(
+    #         response = json.dumps({"message":"cannot read tesla"}),
+    #         status = 500,
+    #         mimetype = "application/json"
+        # )
+##############################
+
+##############################
+# @app.route("/greenlots_stations_us_web")
+# def get_tesla_web():
+#     # try:
+#         data = list(db.greelots.find())
+#         for station in data:
+#             station["_id"] = str(station['_id'])
+#         print("here")
+        # return render_template('index.html',stations = data)
+    # except Exception as ex:
+    #     print(ex)
+    #     return Response(
+    #         response = json.dumps({"message":"cannot read tesla"}),
+    #         status = 500,
+    #         mimetype = "application/json"
+        # )
+##############################
+
+
+##############################
+@app.route('/')
+def index():
+    all_results = []
+    data = list(db.tesla_stations_us.find())
+    all_results.append(data)
+    # data_green = list(db.greenlots.find())
+    # all_results.append(data_green)
+    print(data)
+    return render_template('index.html', stations=all_results)
+##############################
 if __name__ == "__main__":
-    app.run(port =80, debug=True)
+    app.run(debug=True)
