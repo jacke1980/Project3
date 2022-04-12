@@ -93,7 +93,24 @@ def get_flo():
             mimetype = "application/json"
         )
 ##############################
-
+@app.route("/API/greenlots_stations_us_web")
+def get_greenlots_web():
+    # try:
+        data = list(db.greenlots_stations_us.find())
+        for station in data:
+            station["_id"] = str(station['_id'])
+        return jsonify(data)
+    #         response = (data),
+    #         status = 200,
+    #         mimetype = "application/json"
+    #     )
+    # except Exception as ex:
+    #     print(ex)
+    #     return Response(
+    #         response = json.dumps({"message":"cannot read greenlots"}),
+    #         status = 500,
+    #         mimetype = "application/json"
+    #     )
 ##############################
 
 ##############################
@@ -140,7 +157,7 @@ def index():
     all_results.append(data)
     # data_green = list(db.greenlots.find())
     # all_results.append(data_green)
-    print(data)
+    # print(data)
     return render_template('index.html', stations=all_results)
 ##############################
 if __name__ == "__main__":
