@@ -95,60 +95,31 @@ def get_flo():
 ##############################
 @app.route("/API/greenlots_stations_us_web")
 def get_greenlots_web():
-    # try:
-        data = list(db.greenlots_stations_us.find())
-        for station in data:
-            station["_id"] = str(station['_id'])
-        return jsonify(data)
-    #         response = (data),
-    #         status = 200,
-    #         mimetype = "application/json"
-    #     )
-    # except Exception as ex:
-    #     print(ex)
-    #     return Response(
-    #         response = json.dumps({"message":"cannot read greenlots"}),
-    #         status = 500,
-    #         mimetype = "application/json"
-    #     )
+    data = list(db.greenlots_stations_us.find())
+    for station in data:
+        station["_id"] = str(station['_id'])
+    return jsonify(data)
 ##############################
-
+@app.route("/API/volta_stations_us_web")
+def get_volta_web():
+    data = list(db.volta_stations_us.find())
+    for station in data:
+        station["_id"] = str(station['_id'])
+    return jsonify(data)
 ##############################
 @app.route("/API/tesla_stations_us_web")
 def get_tesla_web():
-    # try:
-        data = list(db.tesla_stations_us.find())
-        for station in data:
-            station["_id"] = str(station['_id'])
-        return jsonify(data)
-    # except Exception as ex:
-    #     print(ex)
-    #     return Response(
-    #         response = json.dumps({"message":"cannot read tesla"}),
-    #         status = 500,
-    #         mimetype = "application/json"
-        # )
+    data = list(db.tesla_stations_us.find())
+    for station in data:
+        station["_id"] = str(station['_id'])
+    return jsonify(data)
 ##############################
-
-##############################
-# @app.route("/greenlots_stations_us_web")
-# def get_tesla_web():
-#     # try:
-#         data = list(db.greelots.find())
-#         for station in data:
-#             station["_id"] = str(station['_id'])
-#         print("here")
-        # return render_template('index.html',stations = data)
-    # except Exception as ex:
-    #     print(ex)
-    #     return Response(
-    #         response = json.dumps({"message":"cannot read tesla"}),
-    #         status = 500,
-    #         mimetype = "application/json"
-        # )
-##############################
-
-
+@app.route("/API/flo_stations_us_web", methods=["GET"])
+def get_flo_web():
+    data = list(db.flo_stations_us.find())
+    for station in data:
+        station["_id"] = str(station['_id'])
+    return jsonify(data)
 ##############################
 @app.route('/')
 def index():
