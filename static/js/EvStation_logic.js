@@ -25,6 +25,13 @@ function createMap(evstations) {
     collapsed: false
   }).addTo(map);
 }
+var evIcon = L.icon({
+iconUrl: 'https://png.pngtree.com/png-vector/20191027/ourmid/pngtree-charging-station-glyph-icon-vector-png-image_1886776.jpg',
+iconSize:     [30, 30], // size of the icon
+iconAnchor:   [2, 2], // point of the icon which will correspond to marker's location
+popupAnchor:  [-03, -03] // point from which the popup should open relative to the iconAnchor
+});
+
 function createMarkers(stations) {
   var evmarkers = [];
   // Loop through the stations array.
@@ -32,8 +39,9 @@ function createMarkers(stations) {
     var station = stations[index];
     console.log("stations:", station)
     // For each station, create a marker, and bind a popup with the station's name.
-    var evmarker = L.marker([station.latitude, station.longitude])
-      .bindPopup("<h3>" + station.street_address+ "<h3><h3>State: " + station.state + "</h3>");
+    
+    var evmarker = L.marker([station.latitude, station.longitude], {icon:evIcon})
+      .bindPopup("<h3><h3>Facility Type: " + station.facility_type + "<h3><h3>Access Days/ Time: " + station.access_days_time +"<h3><h3>City: " + station.city +  "<h3><h3>Street Address: " + station.street_address+ "<h3><h3>State: " + station.state + "</h3>");
     evmarkers.push(evmarker);
     console.log("EV Marker:", evmarker)
   };
